@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:23-alpine
 
 # Add package for better security
 RUN apk add --no-cache dumb-init
