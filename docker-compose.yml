@@ -1,19 +1,44 @@
 services:
   product-service:
+    image: pasanbaddewithana1234/product-service:latest
     build: 
       context: .
       dockerfile: Dockerfile
+      args:
+        NODE_ENV: development
     container_name: product-service
     ports:
       - "5002:5002"
+    volumes:
+      - .:/app
+      - /app/node_modules
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=5002
-      # Use the environment variable from .env file
       - MONGO_URI=${MONGO_URI}
+    networks:
+      - product-network
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5002/api/products"]
       interval: 30s
       timeout: 10s
       retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 500M
+        reservations:
+          cpus: '0.25'
+          memory: 200M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  product-network:
+    driver: bridge
+    name: product-network

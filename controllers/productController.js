@@ -11,14 +11,38 @@ exports.createProduct = async (req, res) => {
 };
 
 // READ ALL
+// READ ALL (with optional search by name, price range, and product type)
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const { name, minPrice, maxPrice, productType } = req.query;
+
+    let filter = {};
+
+    // Search by product name (case-insensitive, partial match)
+    if (name) {
+      filter.productName = { $regex: name, $options: 'i' };
+    }
+
+    // Filter by product type (case-insensitive exact match)
+    if (productType) {
+      filter.productType = { $regex: `^${productType}$`, $options: 'i' };
+    }
+
+    // Filter by price range
+    if (minPrice || maxPrice) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = parseFloat(minPrice);
+      if (maxPrice) filter.price.$lte = parseFloat(maxPrice);
+    }
+
+    const products = await Product.find(filter);
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
+
 
 // READ ONE
 exports.getProductById = async (req, res) => {

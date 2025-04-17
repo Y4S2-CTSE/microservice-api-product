@@ -8,8 +8,8 @@ WORKDIR /app
 # Copy package files first to leverage Docker cache
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies including devDependencies for development
+RUN npm install
 
 # Copy application code
 COPY . .
@@ -21,4 +21,4 @@ EXPOSE 5002
 
 # Use dumb-init as entrypoint
 ENTRYPOINT ["dumb-init", "--"]
-CMD ["node", "server.js"]
+CMD ["npm", "run", "dev"]
