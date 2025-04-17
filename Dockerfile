@@ -11,6 +11,12 @@ COPY package*.json ./
 # Install dependencies including devDependencies for development
 RUN npm install
 
+# Add Snyk CLI for container scanning
+RUN npm install -g snyk
+
+# Run Snyk container scan
+RUN snyk container test node:23-alpine --severity-threshold=high || true
+
 # Copy application code
 COPY . .
 

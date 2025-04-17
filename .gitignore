@@ -139,3 +139,7 @@ dist
 # Docker
 .docker
 docker-compose.override.yml
+
+# Snyk
+.snyk
+.dccache
