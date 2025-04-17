@@ -6,6 +6,11 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "snyk:test": "snyk test",
+    "snyk:monitor": "snyk monitor",
+    "security:check": "npm audit && snyk test",
+    "snyk:wizard": "snyk wizard",
+    "snyk:protect": "snyk protect",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +22,7 @@
     "mongoose": "^8.13.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "snyk": "^1.1296.2"
   }
 }
