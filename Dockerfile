@@ -11,7 +11,12 @@ RUN npm ci
 FROM node:18-slim
 
 # Add dumb-init for proper process handling
-RUN apt-get update && apt-get install -y dumb-init
+RUN set -ex && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    dumb-init=1.2.5-1 && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
 
 WORKDIR /app
 
