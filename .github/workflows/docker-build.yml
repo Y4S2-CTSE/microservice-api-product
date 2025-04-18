@@ -1,4 +1,4 @@
-name: Docker Build and Push
+name: Test, Security Check and Deploy
 
 on:
   push:
@@ -7,23 +7,27 @@ on:
     branches: [ main ]
 
 jobs:
-  security:
+  test-and-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          args: --severity-threshold=high
+          node-version: '18'
+          cache: 'npm'
           
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tests
+        run: npm test
+        env:
+          NODE_ENV: test
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -36,4 +40,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: pasanbaddewithana1234/product-service:latest
+          tags: |
+            pasanbaddewithana1234/product-service:latest
+            pasanbaddewithana1234/product-service:${{ github.sha }}

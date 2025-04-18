@@ -4,8 +4,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-      args:
-        NODE_ENV: development
     container_name: product-service
     ports:
       - "5002:5002"
@@ -32,11 +30,6 @@ services:
         reservations:
           cpus: '0.25'
           memory: 200M
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
 
 networks:
   product-network:

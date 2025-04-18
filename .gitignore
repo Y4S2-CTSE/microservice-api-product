@@ -143,3 +143,7 @@ docker-compose.override.yml
 # Snyk
 .snyk
 .dccache
+
+# Test coverage
+coverage/
+.nyc_output/
