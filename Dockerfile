@@ -1,23 +1,22 @@
-FROM node:23-alpine
-
-# Add package for better security
-RUN apk add --no-cache dumb-init
+# Build stage
+FROM node:22-slim AS builder
 
 WORKDIR /app
 
-# Copy package files first to leverage Docker cache
+# Copy package files and install dependencies
 COPY package*.json ./
+RUN npm ci
 
-# Install dependencies including devDependencies for development
-RUN npm install
+# Production stage
+FROM node:22-slim
 
-# Add Snyk CLI for container scanning
-RUN npm install -g snyk
+# Add dumb-init for proper process handling
+RUN apt-get update && apt-get install -y dumb-init
 
-# Run Snyk container scan
-RUN snyk container test node:23-alpine --severity-threshold=high || true
+WORKDIR /app
 
-# Copy application code
+# Copy built node modules and source code
+COPY --from=builder /app/node_modules ./node_modules
 COPY . .
 
 # Use non-root user for security

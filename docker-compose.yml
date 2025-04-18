@@ -32,11 +32,22 @@ services:
         reservations:
           cpus: '0.25'
           memory: 200M
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm test
+    environment:
+      - NODE_ENV=test
+      - PORT=5002
+    volumes:
+      - .:/app
+      - /app/node_modules
+    deploy:
+      resources:
+        limits:
+          memory: 1G
 
 networks:
   product-network:

@@ -11,7 +11,8 @@
     "security:check": "npm audit && snyk test",
     "snyk:wizard": "snyk wizard",
     "snyk:protect": "snyk protect",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --coverage",
+    "test:watch": "cross-env NODE_ENV=test jest --watch"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +23,20 @@
     "mongoose": "^8.13.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.4",
     "nodemon": "^3.1.9",
-    "snyk": "^1.1296.2"
+    "snyk": "^1.1296.2",
+    "supertest": "^7.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "controllers/*.js",
+      "models/*.js",
+      "routes/*.js"
+    ]
   }
 }
