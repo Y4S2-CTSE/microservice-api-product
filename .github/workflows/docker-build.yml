@@ -22,16 +22,20 @@ jobs:
         run: npm ci
         
       - name: Run tests
-        run: npm test
+        id: test
+        run: |
+          npm test || exit 1
         env:
           NODE_ENV: test
           
       - name: Upload test coverage
-        uses: actions/upload-artifact@v3
+        if: success() && steps.test.outcome == 'success'
+        uses: actions/upload-artifact@v3.1.2
         with:
-          name: coverage
-          path: coverage
+          name: coverage-report
+          path: coverage/
           retention-days: 14
+          if-no-files-found: error
 
       - name: Security check with Snyk
         uses: snyk/actions/node@master
