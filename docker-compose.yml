@@ -4,8 +4,6 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-      args:
-        NODE_ENV: development
     container_name: product-service
     ports:
       - "5002:5002"
@@ -32,22 +30,6 @@ services:
         reservations:
           cpus: '0.25'
           memory: 200M
-
-  test:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: npm test
-    environment:
-      - NODE_ENV=test
-      - PORT=5002
-    volumes:
-      - .:/app
-      - /app/node_modules
-    deploy:
-      resources:
-        limits:
-          memory: 1G
 
 networks:
   product-network:
