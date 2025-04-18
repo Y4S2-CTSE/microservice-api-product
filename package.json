@@ -11,7 +11,15 @@
     "security:check": "npm audit && snyk test",
     "snyk:wizard": "snyk wizard",
     "snyk:protect": "snyk protect",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sonar": "node sonar-project.js",
+    "test:coverage": "jest --coverage",
+    "test:sonar": "jest --coverage --testResultsProcessor jest-sonar-reporter"
+  },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-report.xml",
+    "indent": 4
   },
   "keywords": [],
   "author": "",
@@ -22,7 +30,10 @@
     "mongoose": "^8.13.2"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^3.1.9",
-    "snyk": "^1.1296.2"
+    "snyk": "^1.1296.2",
+    "sonarqube-scanner": "^4.3.0"
   }
 }

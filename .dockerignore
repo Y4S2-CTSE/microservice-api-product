@@ -8,3 +8,9 @@ README.md
 .env
 *.md
 .DS_Store
+coverage
+.nyc_output
+.scannerwork
+tests
+jest.config.js
+sonar-project.js

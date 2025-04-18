@@ -143,3 +143,8 @@ docker-compose.override.yml
 # Snyk
 .snyk
 .dccache
+
+# SonarQube
+.scannerwork/
+coverage/
+.sonar/
