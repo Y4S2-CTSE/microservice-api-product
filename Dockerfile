@@ -1,5 +1,5 @@
 # Build stage
-FROM node:22-slim AS builder
+FROM node:18-slim AS builder
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm ci
 
 # Production stage
-FROM node:22-slim
+FROM node:18-slim
 
 # Add dumb-init for proper process handling
 RUN apt-get update && apt-get install -y dumb-init
