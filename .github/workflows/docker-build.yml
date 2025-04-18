@@ -26,6 +26,13 @@ jobs:
         env:
           NODE_ENV: test
 
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
