@@ -16,12 +16,10 @@ WORKDIR /app
 ARG MONGO_URI
 ARG PORT=5002
 
-
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=$PORT
 ENV MONGO_URI=$MONGO_URI
-
 
 # Copy built node modules and source code
 COPY --from=builder /app/node_modules ./node_modules

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middlware/auth');
 const {
   createProduct,
   getAllProducts,
@@ -9,13 +8,10 @@ const {
   deleteProduct
 } = require('../controllers/productController');
 
-// Public routes
+router.post('/', createProduct);
 router.get('/', getAllProducts);
 router.get('/:id', getProductById);
-
-// Protected routes - require authentication
-router.post('/', authenticateToken, createProduct);
-router.put('/:id', authenticateToken, updateProduct);
-router.delete('/:id', authenticateToken, deleteProduct);
+router.put('/:id', updateProduct);
+router.delete('/:id', deleteProduct);
 
 module.exports = router;

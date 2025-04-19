@@ -23,7 +23,6 @@ jobs:
         run: |
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "NODE_ENV=test" >> .env
           
       - name: Install dependencies
@@ -35,7 +34,6 @@ jobs:
           NODE_ENV: test
           MONGO_URI: ${{ secrets.MONGO_URI }}
           PORT: ${{ secrets.PORT }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Run Snyk security scan
         uses: snyk/actions/node@master
@@ -61,7 +59,6 @@ jobs:
           build-args: |
             MONGO_URI=${{ secrets.MONGO_URI }}
             PORT=${{ secrets.PORT }}
-            JWT_SECRET=${{ secrets.JWT_SECRET }}
           tags: |
             pasanbaddewithana1234/product-service:latest
             pasanbaddewithana1234/product-service:${{ github.sha }}
