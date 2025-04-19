@@ -6,8 +6,8 @@ services:
       - "5002:5002"
     environment:
       - NODE_ENV=production
-      - PORT=${PORT}
-      - MONGO_URI=${MONGO_URI}
+      - PORT=5002
+      - MONGO_URI=mongodb+srv://it21247804:Lonewolf1234@afassignment.1ukrjs4.mongodb.net/CTSE?retryWrites=true&w=majority
     restart: unless-stopped
     networks:
       - product-network
