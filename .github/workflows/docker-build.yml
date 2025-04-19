@@ -10,13 +10,20 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
       
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
+      
+      - name: Create env file
+        run: |
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+          echo "NODE_ENV=test" >> .env
           
       - name: Install dependencies
         run: npm ci
@@ -25,8 +32,10 @@ jobs:
         run: npm test
         env:
           NODE_ENV: test
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          PORT: ${{ secrets.PORT }}
 
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk security scan
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -47,6 +56,17 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            MONGO_URI=${{ secrets.MONGO_URI }}
+            PORT=${{ secrets.PORT }}
           tags: |
             pasanbaddewithana1234/product-service:latest
             pasanbaddewithana1234/product-service:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Verify deployment
+        run: |
+          echo "Image tags:"
+          echo "latest: pasanbaddewithana1234/product-service:latest"
+          echo "sha: pasanbaddewithana1234/product-service:${{ github.sha }}"
