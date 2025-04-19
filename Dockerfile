@@ -15,13 +15,13 @@ WORKDIR /app
 # Define build arguments
 ARG MONGO_URI
 ARG PORT=5002
-ARG JWT_SECRET
+
 
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=$PORT
 ENV MONGO_URI=$MONGO_URI
-ENV JWT_SECRET=$JWT_SECRET
+
 
 # Copy built node modules and source code
 COPY --from=builder /app/node_modules ./node_modules
