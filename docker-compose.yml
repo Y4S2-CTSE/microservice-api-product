@@ -1,19 +1,16 @@
 services:
   product-service:
     image: pasanbaddewithana1234/product-service:latest
-    build: 
-      context: .
-      dockerfile: Dockerfile
     container_name: product-service
     ports:
       - "5002:5002"
-    env_file:
-      - .env
     environment:
       - NODE_ENV=production
+      - PORT=5002
+      - MONGO_URI=${MONGO_URI}
+    restart: unless-stopped
     networks:
       - product-network
-    restart: unless-stopped
 
 networks:
   product-network:
