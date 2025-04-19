@@ -11,6 +11,11 @@ app.use('/api/products', productRoutes);
 
 // Only connect if not in test environment
 if (process.env.NODE_ENV !== 'test') {
+  if (!process.env.MONGO_URI) {
+    console.error('MONGO_URI is not defined in environment variables');
+    process.exit(1);
+  }
+
   mongoose.connect(process.env.MONGO_URI)
     .then(() => {
       console.log('Connected to MongoDB');
@@ -18,7 +23,10 @@ if (process.env.NODE_ENV !== 'test') {
         console.log(`Server running on port ${process.env.PORT}`);
       });
     })
-    .catch((err) => console.error('DB connection error:', err));
+    .catch((err) => {
+      console.error('DB connection error:', err);
+      process.exit(1);
+    });
 }
 
 module.exports = app;

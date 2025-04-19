@@ -10,21 +10,19 @@ RUN npm ci
 # Production stage
 FROM node:18-slim
 
-# Add dumb-init for proper process handling
-RUN apt-get update && apt-get install -y dumb-init && rm -rf /var/lib/apt/lists/*
-
-
 WORKDIR /app
 
 # Copy built node modules and source code
 COPY --from=builder /app/node_modules ./node_modules
 COPY . .
 
+# Add environment variables
+ENV NODE_ENV=production
+ENV PORT=5002
+
 # Use non-root user for security
 USER node
 
 EXPOSE 5002
 
-# Use dumb-init as entrypoint
-ENTRYPOINT ["dumb-init", "--"]
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
