@@ -6,7 +6,7 @@ services:
       - "5002:5002"
     environment:
       - NODE_ENV=production
-      - PORT=5002
+      - PORT=${PORT}
       - MONGO_URI=${MONGO_URI}
     restart: unless-stopped
     networks:
