@@ -90,6 +90,42 @@ POST /api/products
 }
 ```
 
+## 🚀 Deployments
+
+### 🌐 Google Kubernetes Engine (GKE)
+- Base URL: `http://35.185.181.247:5002`
+- Endpoints:
+  - Get all products: `GET http://35.185.181.247:5002/api/products`
+  - Get product by ID: `GET http://35.185.181.247:5002/api/products/:id`
+  - Create product: `POST http://35.185.181.247:5002/api/products`
+  - Update product: `PUT http://35.185.181.247:5002/api/products/:id`
+  - Delete product: `DELETE http://35.185.181.247:5002/api/products/:id`
+
+### 🔧 GKE Environment
+- Cluster Name: product-cluster
+- Zone: us-central1-a
+- Namespace: product-namespace
+- Service Type: LoadBalancer
+- Port: 5002
+
+### 📝 Testing GKE Deployment
+```bash
+# Check service status
+curl http://35.185.181.247:5002/api/products
+
+# Create a product
+curl -X POST http://35.185.181.247:5002/api/products \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productName": "Test Product",
+    "productCode": "TP123",
+    "image": "http://example.com/test.jpg",
+    "productType": "Test",
+    "description": "Test Description",
+    "price": 99.99
+  }'
+```
+
 ## 🐳 Docker Features
 
 - 🏗️ Multi-stage builds
@@ -104,6 +140,17 @@ POST /api/products
 - 🔒 Security scanning with Snyk
 - 🐳 Docker image building and pushing
 - 📦 Deployment automation
+- 🌐 GKE deployment pipeline
+  - 🔑 Google Cloud authentication
+  - 🏗️ Container Registry integration
+  - 🚀 Kubernetes deployment
+  - 🔄 Auto rollout updates
+  - 📊 Deployment status verification
+- 🔄 Continuous deployment workflow
+  - 🧪 Test → Build → Push → Deploy
+  - 🔍 Automated environment checks
+  - 📡 Service health monitoring
+  - 🌍 Load balancer configuration
 
 ## 👥 Contributing
 
@@ -119,9 +166,10 @@ This project is licensed under the MIT License
 
 ## 📞 Support
 
-For support, email your-email@example.com or join our Slack channel.
-minor change - 2
+- ✉️ Email Support: IT21247804@my.sliit.lk
+- 🌐 GKE Service Status: http://35.185.181.247:5002/api/products
+- 🐳 Docker Hub: https://hub.docker.com/r/pasanbaddewithana1234/product-service
+- 🔧 Technical Issues: Create a GitHub issue
+- 📝 Documentation: Check Wiki section
 
-## 🌟 Star History
-small chnages
-[![Star History Chart](https://api.star-history.com/svg?repos=your-username/microservice-api-product&type=Date)](https://star-history.com/#your-username/microservice-api-product&Date)
+
