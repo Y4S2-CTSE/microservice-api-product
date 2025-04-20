@@ -2,9 +2,9 @@ name: Test, Build and Deploy to DockerHub and GKE
 
 on:
   push:
-    branches: [ thisara_dev ]
+    branches: [ main ]
   pull_request:
-    branches: [ thisara_dev ]
+    branches: [ main ]
 
 env:
   PROJECT_ID:    ${{ secrets.PROJECT_ID }}
