@@ -172,6 +172,8 @@ This project is licensed under the MIT License
 - 🔧 Technical Issues: Create a GitHub issue
 - 📝 Documentation: Check Wiki section
 
+## showing the CI/CD Pipeline
+
 ## BY Pasan Baddewithana
 
 
