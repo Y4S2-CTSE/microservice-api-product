@@ -2,9 +2,9 @@ name: Test, Security Check and Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ thisara_dev]
   pull_request:
-    branches: [ main ]
+    branches: [ thisara_dev ]
 
 jobs:
   test-and-build:
