@@ -7,7 +7,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=5002
-      - MONGO_URI=mongodb+srv://it21247804:Lonewolf1234@afassignment.1ukrjs4.mongodb.net/CTSE?retryWrites=true&w=majority
+      - MONGO_URI=${MONGO_URI}
     restart: unless-stopped
    
 
